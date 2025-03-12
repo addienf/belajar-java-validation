@@ -5,14 +5,13 @@ import pzn.validation.entity.Order;
 
 import java.util.Locale;
 
-public class I18NTest extends AbstractValidatorTest{
-    @Test
-    void create() {
-        Locale.setDefault(Locale.of("in", "ID"));
+public class ConstraintCompositionTest extends AbstractValidatorTest{
 
+    @Test
+    void testComposition() {
+        Locale.setDefault(Locale.of("in", "ID"));
         Order order = new Order();
-        order.setAmount(10L);
-        order.setId("12345");
+        order.setId("abcd");
 
         validate(order);
     }

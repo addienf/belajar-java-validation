@@ -3,24 +3,16 @@ package pzn.validation.entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
+import pzn.validation.constraint.CheckCase;
+import pzn.validation.constraint.CheckOrderId;
+import pzn.validation.data.CaseMode;
 
 public class Order {
 
-    @NotBlank(
-            message = "{order.id.notblank}"
-    )
-    @Size(
-            min = 1,
-            max = 10,
-            message = "{order.id.size}"
-    )
+    @CheckOrderId
     private String id;
 
-    @Range(
-            min = 10_000,
-            max = 100_000_000,
-            message = "{order.amount.range}"
-    )
+    @Range(min = 10_000, max = 100_000_000, message = "{order.amount.range}")
     private Long amount;
 
     public String getId() {
