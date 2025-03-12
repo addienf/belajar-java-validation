@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public class Person {
 
     @NotBlank(message = "First name can not blank")
@@ -18,6 +20,16 @@ public class Person {
     @NotNull(message = "Address can not null")
     @Valid
     public Address address;
+
+    private List<@NotBlank(message = "Hobbies must not blank") String> hobbies;
+
+    public List<String> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<String> hobbies) {
+        this.hobbies = hobbies;
+    }
 
     public Address getAddress() {
         return address;
