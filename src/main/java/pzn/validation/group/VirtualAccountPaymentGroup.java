@@ -1,4 +1,4 @@
-package pzn.validation.data;
+package pzn.validation.group;
 
 public interface VirtualAccountPaymentGroup {
 }

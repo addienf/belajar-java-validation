@@ -1,11 +1,9 @@
 package pzn.validation;
 
 import org.junit.jupiter.api.Test;
-import pzn.validation.data.CreditCardPaymentGroup;
-import pzn.validation.data.VirtualAccountPaymentGroup;
+import pzn.validation.group.CreditCardPaymentGroup;
+import pzn.validation.group.VirtualAccountPaymentGroup;
 import pzn.validation.entity.Payment;
-
-import java.util.Set;
 
 public class GroupConstraintTest extends AbstractValidatorTest{
 

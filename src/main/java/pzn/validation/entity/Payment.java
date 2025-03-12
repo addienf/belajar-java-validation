@@ -1,13 +1,27 @@
 package pzn.validation.entity;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 import org.hibernate.validator.constraints.LuhnCheck;
 import org.hibernate.validator.constraints.Range;
-import pzn.validation.data.CreditCardPaymentGroup;
-import pzn.validation.data.VirtualAccountPaymentGroup;
+import pzn.validation.group.CreditCardPaymentGroup;
+import pzn.validation.group.VirtualAccountPaymentGroup;
+import pzn.validation.payload.EmailErrorPayload;
 
 public class Payment {
+
+    @Valid
+    @NotNull(
+            groups = {CreditCardPaymentGroup.class, VirtualAccountPaymentGroup.class},
+            message = "Customer must not null"
+    )
+    @ConvertGroup(from = CreditCardPaymentGroup.class, to = Default.class)
+    @ConvertGroup(from = VirtualAccountPaymentGroup.class, to = Default.class)
+    private Customer customer;
+
     @NotBlank(
             groups = {CreditCardPaymentGroup.class, VirtualAccountPaymentGroup.class},
             message = "Order must not null"
@@ -27,11 +41,24 @@ public class Payment {
     private Long amount;
 
     @NotBlank(groups = {CreditCardPaymentGroup.class},message = "Credit Card must not null")
-    @LuhnCheck(groups = {CreditCardPaymentGroup.class},message = "Credit Card must valid number")
+    @LuhnCheck(
+            groups = {CreditCardPaymentGroup.class},message = "Credit Card must valid number",
+            payload = {EmailErrorPayload.class}
+    )
     private String creditCard;
 
-    @NotBlank(groups = {CreditCardPaymentGroup.class},message = "Virtual Account must not null")
+    @NotBlank(groups = {VirtualAccountPaymentGroup.class},message = "Virtual Account must not null")
     private String virtualAccount;
+
+    /* Getter Setter */
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public String getVirtualAccount() {
         return virtualAccount;

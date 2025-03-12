@@ -51,4 +51,25 @@ public class Person {
                 ", address=" + address +
                 '}';
     }
+
+    public void sayHello(@NotBlank(message = "name must not blank") String name){
+        System.out.println("Hi " + name + ", my name is " + this.firstName);
+    }
+
+    @NotBlank(message = "NotBlank")
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
+    @Valid
+    public Person() {
+    }
+
+    public Person(@NotBlank(message = "First name must not blank") String firstName,
+                  @NotBlank(message = "Last name must not blank") String lastName,
+                  @NotNull(message = "Address must not blank") @Valid Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
 }
